@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
+const User = require("../models/user");
 
 require("dotenv").config();
 
