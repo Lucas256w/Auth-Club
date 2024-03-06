@@ -10,11 +10,13 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
+const MongoStore = require("connect-mongo");
 const User = require("../models/user");
 
 require("dotenv").config();
 
 var indexRouter = require("./routes/index");
+const homePageRouter = require("./routes/homepage");
 
 var app = express();
 
@@ -47,6 +49,9 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.CONNECTION_STRING,
+    }),
   })
 );
 app.use(passport.session());
@@ -85,6 +90,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.use("/", indexRouter);
+app.use("/homepage", homePageRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
