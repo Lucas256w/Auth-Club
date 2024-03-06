@@ -4,21 +4,21 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const compression = require("compression");
-const helmet = require("helmet");
-const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
+const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
-const User = require("../models/user");
+
+// ---------------- GENERAL SETUP ------------------
 
 require("dotenv").config();
 
-var indexRouter = require("./routes/index");
-const homePageRouter = require("./routes/homepage");
-
 var app = express();
+
+app.use(express.urlencoded({ extended: false }));
+
+// ---------------- DATABASE CONNECTION ------------------
 
 // Connect to MongoDB
 mongoose.set("strictQuery", false);
@@ -35,14 +35,10 @@ app.use(compression());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser());
+app.use(helmet());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      "script-src": ["'self'"],
-    },
-  })
-);
+
+// ---------------- SESSION SETUP ------------------
 
 app.use(
   session({
@@ -54,44 +50,22 @@ app.use(
     }),
   })
 );
+
+// ---------------- PASSPORT AUTHENTICATION ------------------
+
+require("./config/passport");
+
 app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
 
-// Use local strategy for user authentication
-passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const user = await User.findOne({ username: username });
-      if (!user) {
-        return done(null, false);
-      }
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-        return done(null, false);
-      }
-      return done(null, user);
-    } catch (err) {
-      return done(err);
-    }
-  })
-);
+var indexRouter = require("./routes/index");
+const homePageRouter = require("./routes/homepage");
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findById(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
+// ---------------- ROUTES ------------------
 
 app.use("/", indexRouter);
 app.use("/homepage", homePageRouter);
 
+// ---------------- ERROR HANDLERS ------------------
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

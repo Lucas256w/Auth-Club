@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div 
+    p Messages 
+  div 
+    if messages 
+      for message in messages 
+        div.message-card
+          p.message-title= message.title 
+          p.message-content= message.content 
+    else 
+      p There are no messages.
+
+    
