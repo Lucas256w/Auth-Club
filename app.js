@@ -57,13 +57,10 @@ require("./config/passport");
 
 app.use(passport.session());
 
-var indexRouter = require("./routes/index");
-const homePageRouter = require("./routes/homepage");
-
 // ---------------- ROUTES ------------------
 
-app.use("/", indexRouter);
-app.use("/homepage", homePageRouter);
+var indexRouter = require("./routes/index");
+app.use(indexRouter);
 
 // ---------------- ERROR HANDLERS ------------------
 // catch 404 and forward to error handler
