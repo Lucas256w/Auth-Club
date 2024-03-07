@@ -19,3 +19,10 @@ exports.homepage_message_list = asyncHandler(async (req, res, nxet) => {
     res.render("index", { messages: allMessages });
   }
 });
+
+// POST request for /delete-message, delete a message (ADMIN ONLY)
+exports.delete_message = asyncHandler(async (req, res, next) => {
+  await Message.deleteOne({ _id: req.body.messageid });
+
+  res.redirect("/");
+});

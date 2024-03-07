@@ -9,7 +9,12 @@ block content
     if messages.length
       for message in messages 
         div.message-card
-          p.message-title= message.title
+          div          
+            p.message-title= message.title
+            if status === "admin"
+              form(action="/delete-message" method="POST")
+                input(type="hidden" name='messageid' value=message._id)
+                button.btn(type="submit") Delete
           if status == "admin" || status == "member"
             p.message-user by #{message.user.username}
             p.message-date= message.date_formatted

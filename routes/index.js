@@ -21,6 +21,16 @@ router.get("/log-in", formController.login_form);
 // POST request for login page, log user in if correct credentials
 router.post("/log-in", formController.login_form_post);
 
+// GET request for log out, logs the user out
+router.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 // GET request for signup page, load signup form
 router.get("/sign-up", formController.signup_form);
 
@@ -52,5 +62,8 @@ router.post(
   isAuth,
   formController.secret_form_admin_post
 );
+
+// POST request for delete message
+router.post("/delete-message", homepageController.delete_message);
 
 module.exports = router;
