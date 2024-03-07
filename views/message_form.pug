@@ -1,13 +1,17 @@
 extends layout
 
 block content
-    h1 Add New Message
-    h3= message
-    form(method="POST")
-        div.form-group
-            label(for="title") Title
-            input(type="text" name="title" placeholder="Title of your message..." minLength="1" maxLength="100" required)
-        div.form-group
-            label(for="message") Message
-            input(type="text" name="message" placeholder="Your message..." minLength="1" maxLength="100" required) 
-        button.btn(type="submit") Submit 
+    div.back-link-container
+        a.back-link(href="/") <- Back 
+    div.form-page
+        div.form-container
+            h1.form-title Add New Message
+            h3.form-message= message
+            form(method="POST")
+                div.form-group
+                    label(for="title") Title
+                    input(type="text" name="title" placeholder="Title of your message..." minLength="1" maxLength="100" required)
+                div.form-group
+                    label(for="message") Message
+                    input(type="text" name="message" placeholder="Your message..." minLength="1" maxLength="100" required) 
+                button.btn(type="submit") Submit 

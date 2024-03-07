@@ -67,7 +67,7 @@ exports.signup_form_post = [
   body("confirmPassword")
     .trim()
     .custom((value, { req }) => value === req.body.password)
-    .withMessage("Password confirmation does not match password")
+    .withMessage("Confirm Password does not match password")
     .escape(),
 
   asyncHandler(async (req, res, next) => {

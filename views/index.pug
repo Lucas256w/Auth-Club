@@ -6,20 +6,21 @@ block content
       p.main-title Messages 
       if user
         a.btn(href="/message-form") New Message 
-    div.messages-container
+    div.messages-cards-container
       if messages.length
         for message in messages 
           div.message-card
-            div          
+            div.message-card-top          
               p.message-title= message.title
               if status === "admin"
                 form(action="/delete-message" method="POST")
                   input(type="hidden" name='messageid' value=message._id)
                   button.btn(type="submit") Delete
             if status == "admin" || status == "member"
-              p.message-user by #{message.user.username}
-              p.message-date= message.date_formatted
-            p.message-content= message.message
+              p.message-content by #{message.user.username}
+              p.message-content= message.date_formatted
+            div.message-container
+              p.message-content.message= message.message
             if status !== "admin" && status !== "member"
               div.message-warning-container
                 p.message-warning Note: Sign up AND become a member to see who wrote this message and when

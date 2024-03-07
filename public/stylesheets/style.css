@@ -44,6 +44,10 @@ a {
   border: none;
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 /* HEADER */
 
 .header {
@@ -70,14 +74,16 @@ a {
 }
 
 .header-btns > * {
-  width: 4rem;
+  padding: 10px;
+  font-size: 0.8rem;
+  width: 5rem;
   text-align: center;
 }
 
 /* MAIN CONTENT OF HOMEPAGE */
 
 .main-content {
-  padding-top: 1rem;
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -104,8 +110,14 @@ a {
   background-color: white;
   border-radius: 5px;
   box-shadow: 0 3px 5px rgb(164, 164, 164);
-  line-height: 2rem;
+  line-height: 1.7rem;
   flex-grow: 1;
+}
+
+.message-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .message-title {
@@ -113,15 +125,25 @@ a {
   font-weight: 700;
 }
 
-.messages-container {
+.messages-cards-container {
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
   width: 80%;
+  gap: 1.5rem;
 }
 
 .message-content {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+}
+
+.message-container {
+  border-top: 1px solid #ebebeb;
+  padding: 1rem 0;
+}
+
+.message {
+  font-size: 1rem;
 }
 
 .message-warning-container {
@@ -141,6 +163,16 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.back-link-container {
+  z-index: 1;
+  padding: 1rem;
+}
+
+.back-link {
+  color: #374151;
+  font-size: 1.5rem;
 }
 
 .form-container {
@@ -173,6 +205,6 @@ input {
 
 form {
   display: grid;
-  grid-template-rows: 1fr 1fr 50px;
+  grid-template-rows: repeat(auto-fit, 1fr);
   gap: 1rem;
 }
