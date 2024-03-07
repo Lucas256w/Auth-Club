@@ -76,6 +76,6 @@ $ npm run start
 
 ## License
 
-<a href="https://github.com/rahimratnani/members-only/blob/main/LICENSE">
+<a href="https://github.com/Lucas256w/Auth-Club/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="MIT License">
 </a>
