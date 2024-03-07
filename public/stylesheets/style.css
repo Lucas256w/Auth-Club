@@ -139,6 +139,7 @@ a {
 
 .message-container {
   border-top: 1px solid #ebebeb;
+  margin-top: 1rem;
   padding: 1rem 0;
 }
 

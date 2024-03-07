@@ -20,7 +20,7 @@ block content
               p.message-content by !{message.user.username}
               p.message-content= message.date_formatted
             div.message-container
-              p.message-content.message= !{message.message}
+              p.message-content.message!= message.message
             if status !== "admin" && status !== "member"
               div.message-warning-container
                 p.message-warning Note: Sign up AND become a member to see who wrote this message and when

@@ -96,7 +96,7 @@ exports.signup_form_post = [
       }
       await user.save();
 
-      res.render("signup_form", { message: "Sign Up Succesful!" });
+      res.redirect("/log-in");
     }
   }),
 ];
