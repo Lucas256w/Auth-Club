@@ -167,7 +167,6 @@ a {
 }
 
 .back-link-container {
-  z-index: 1;
   padding: 1rem;
 }
 
@@ -179,8 +178,9 @@ a {
 .form-container {
   display: flex;
   flex-direction: column;
+  min-width: fit-content;
+  transform: translatey(-3.5rem);
   width: 50%;
-  border: 2px solid black;
 }
 
 .form-title {
