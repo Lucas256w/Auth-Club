@@ -3,20 +3,26 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com" crossorigin )
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap")
+
   body
     div.header
-    div
-      p AuthClub 
-    div
-      if user && status === "non-member"
-        a(href="/secret-form-member") Join Club
-        a(href="/log-out") Log Out
-      else if user && status === "member"
-        a(href="/secret-form-admin") Join Admin
-        a(href="/log-out") Log Out
-      else if user && status === "admin"
-        a(href="/log-out") Log Out
-      else 
-        a(href="/log-in") Log In
-        a(href="/sign-up") Sign Up
+      div
+        p
+         span.app-title-one Auth
+         span.app-title-two Club
+      div.header-btns
+        if user && status === "non-member"
+          a.btn(href="/secret-form-member") Join Club
+          a.btn(href="/log-out") Log Out
+        else if user && status === "member"
+          a.btn(href="/secret-form-admin") Join Admin
+          a.btn(href="/log-out") Log Out
+        else if user && status === "admin"
+          a.btn(href="/log-out") Log Out
+        else 
+          a.btn(href="/log-in") Log In
+          a.btn(href="/sign-up") Sign Up
     block content

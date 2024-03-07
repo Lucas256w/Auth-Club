@@ -1,28 +1,29 @@
 extends layout
 
 block content
-  div 
-    p Messages 
-    if user
-    a(href="/message-form") New Message 
-  div 
-    if messages.length
-      for message in messages 
-        div.message-card
-          div          
-            p.message-title= message.title
-            if status === "admin"
-              form(action="/delete-message" method="POST")
-                input(type="hidden" name='messageid' value=message._id)
-                button.btn(type="submit") Delete
-          if status == "admin" || status == "member"
-            p.message-user by #{message.user.username}
-            p.message-date= message.date_formatted
-          p.message-content= message.message
-          if status !== "admin" && status !== "member"
-            div
-              p Note: Sign up AND become a member to see who wrote this message and when
-    else 
-      p There are no messages.
+  div.main-content
+    div.main-title-container
+      p.main-title Messages 
+      if user
+        a.btn(href="/message-form") New Message 
+    div.messages-container
+      if messages.length
+        for message in messages 
+          div.message-card
+            div          
+              p.message-title= message.title
+              if status === "admin"
+                form(action="/delete-message" method="POST")
+                  input(type="hidden" name='messageid' value=message._id)
+                  button.btn(type="submit") Delete
+            if status == "admin" || status == "member"
+              p.message-user by #{message.user.username}
+              p.message-date= message.date_formatted
+            p.message-content= message.message
+            if status !== "admin" && status !== "member"
+              div.message-warning-container
+                p.message-warning Note: Sign up AND become a member to see who wrote this message and when
+      else 
+        p There are no messages.
 
     
