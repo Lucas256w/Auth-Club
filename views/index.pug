@@ -4,12 +4,14 @@ block content
   div 
     p Messages 
   div 
-    if messages 
+    if messages.length
       for message in messages 
         div.message-card
           p.message-title= message.title 
           p.message-content= message.content 
     else 
+      if user
+        a(href="/message-form") New Message 
       p There are no messages.
 
     

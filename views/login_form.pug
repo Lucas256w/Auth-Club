@@ -1,7 +1,8 @@
 extends layout
 
 block content
-    h1 Log In 
+    h1 Log In
+    h3= message
     form(method="POST")
         div.form-group
             label(for="username") Username
@@ -10,5 +11,3 @@ block content
             label(for="password") Password 
             input(type="password" name="password" placeholder="Password") 
         button.btn(type="submit") Login
-    if error 
-        p= error

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 Sign Up
+    h3= message
+    form(method="POST")
+        div.form-group
+            label(for="username") Username
+            input(type="text" name="username" placeholder="Username" minLength="4" required)
+        div.form-group
+            label(for="email") Email 
+            input(type="email" name="email" placeholder="Email")
+        div.form-group
+            label(for="password") Password
+            input(type="password" name="password" placeholder="Password" required)
+        div.form-group
+            label(for="confirmPassword") Comfirm Password
+            input(type="password" name="confirmPassword" placeholder="Confirm Password" minLength="8" required)
+        button.btn(type="submit") Sign Up
+    if errors 
+        for e in errors 
+            p - #{e.msg}
