@@ -2,7 +2,7 @@
 
 <img width="800" alt="image" src="https://github.com/Lucas256w/Auth-Club/assets/112456075/54421c58-c2a7-4d90-94ca-abcfacf9d1cf">
 
-**:point_right: See it live [here](https://auth-club.up.railway.app/)**
+# **:point_right: See it live [here](https://auth-club.up.railway.app/)**
 
 Auth Club is an exclusive message board where anyone can come and see the messages but only logged-in users can write new messages. To see who created the message and when users have to get the membership by entering a SECRET code. There's also an admin who can see all the messages with author, date, and time, and can also delete the messages.
 
