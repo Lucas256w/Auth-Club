@@ -6,7 +6,7 @@ block content
     form(method="POST")
         div.form-group
             label(for="username") Username
-            input(type="text" name="username" placeholder="Username" minLength="4" required)
+            input(type="text" name="username" placeholder="Username" minLength="4" maxLength="30" required)
         div.form-group
             label(for="email") Email 
             input(type="email" name="email" placeholder="Email" required)
@@ -15,7 +15,7 @@ block content
             input(type="password" name="password" placeholder="Password" required)
         div.form-group
             label(for="confirmPassword") Comfirm Password
-            input(type="password" name="confirmPassword" placeholder="Confirm Password" minLength="8" required)
+            input(type="password" name="confirmPassword" placeholder="Confirm Password" minLength="8" maxLength="30" required)
         button.btn(type="submit") Sign Up
     if errors 
         for e in errors 

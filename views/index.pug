@@ -3,18 +3,21 @@ extends layout
 block content
   div 
     p Messages 
+    if user
+    a(href="/message-form") New Message 
   div 
     if messages.length
       for message in messages 
         div.message-card
-          p.message-title= message.title 
+          p.message-title= message.title
+          if status == "admin" || status == "member"
+            p.message-user by #{message.user.username}
+            p.message-date= message.date_formatted
           p.message-content= message.message
-          if !admin || !member
+          if status !== "admin" && status !== "member"
             div
               p Note: Sign up AND become a member to see who wrote this message and when
     else 
-      if user
-        a(href="/message-form") New Message 
       p There are no messages.
 
     
