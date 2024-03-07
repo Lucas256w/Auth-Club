@@ -33,4 +33,24 @@ router.get("/message-form", isAuth, formController.message_form);
 // POST request for message form page
 router.post("/message-form", isAuth, formController.message_form_post);
 
+// GET request for secret code MEMBER form page
+router.get("/secret-form-member", isAuth, formController.secret_form_member);
+
+// POST request for secret code MEMBER form page
+router.post(
+  "/secret-form-member",
+  isAuth,
+  formController.secret_form_member_post
+);
+
+// GET request for secret code ADMIN form page
+router.get("/secret-form-admin", isAuth, formController.secret_form_admin);
+
+// POST request for secret code ADMIN form page
+router.post(
+  "/secret-form-admin",
+  isAuth,
+  formController.secret_form_admin_post
+);
+
 module.exports = router;

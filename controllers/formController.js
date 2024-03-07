@@ -5,11 +5,15 @@ const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const user = require("../models/user");
+require("dotenv").config();
 
 // ------------------------------------ LOGIN FORM ---------------------------------------
 
 // GET request for login form page
 exports.login_form = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  }
   res.render("login_form");
 };
 
@@ -35,6 +39,9 @@ exports.login_form_post = (req, res, next) => {
 
 // GET request for signup page, loads signup form
 exports.signup_form = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  }
   res.render("signup_form");
 };
 
@@ -98,7 +105,10 @@ exports.signup_form_post = [
 
 // GET request for message form, display message form
 exports.message_form = (req, res, next) => {
-  res.render("message_form", { user: req.isAuthenticated() });
+  res.render("message_form", {
+    user: req.isAuthenticated(),
+    status: req.user.status,
+  });
 };
 
 // POST request for message form
@@ -130,6 +140,70 @@ exports.message_form_post = [
       await message.save();
 
       res.redirect("/");
+    }
+  }),
+];
+
+// ------------------------------------ SECRET CODE FORM ---------------------------------------
+
+// GET request for secret code form (MEMBER)
+exports.secret_form_member = (req, res, next) => {
+  if (req.user.status === "member" || req.user.status === "admin") {
+    res.redirect("/");
+  }
+  res.render("secret_form", {
+    user: req.isAuthenticated(),
+    status: "non-member",
+  });
+};
+
+// POST request for secret code form (MEMBER)
+exports.secret_form_member_post = [
+  body("code").trim().escape(),
+
+  asyncHandler(async (req, res, next) => {
+    if (req.body.code === process.env.MEMBER_CODE) {
+      await User.updateOne(
+        { _id: req.user._id },
+        { $set: { status: "member" } }
+      ).exec();
+      res.redirect("/");
+    } else {
+      res.render("secret_form", {
+        message: "Incorrect Code",
+        status: "non-member",
+      });
+    }
+  }),
+];
+
+// GET request for secret code form (ADMIN)
+exports.secret_form_admin = (req, res, next) => {
+  if (req.user.status === "admin") {
+    res.redirect("/");
+  }
+  res.render("secret_form", {
+    user: req.isAuthenticated(),
+    status: "member",
+  });
+};
+
+// POST request for secret code form (ADMIN)
+exports.secret_form_admin_post = [
+  body("code").trim().escape(),
+
+  asyncHandler(async (req, res, next) => {
+    if (req.body.code === process.env.ADMIN_CODE) {
+      await User.updateOne(
+        { _id: req.user._id },
+        { $set: { status: "admin" } }
+      ).exec();
+      res.redirect("/");
+    } else {
+      res.render("secret_form", {
+        message: "Incorrect Code",
+        status: "member",
+      });
     }
   }),
 ];

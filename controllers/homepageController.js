@@ -8,23 +8,11 @@ exports.homepage_message_list = asyncHandler(async (req, res, nxet) => {
   const allMessages = await Message.find().exec();
 
   // Check to see if there is a user field (logged in) and if so check the status
-  if (req.isAuthenticated() && req.user.status === "admin") {
+  if (req.isAuthenticated()) {
     res.render("index", {
       messages: allMessages,
-      member: true,
-      user: req.isAuthenticated(),
-      admin: true,
-    });
-  } else if (req.isAuthenticated() && req.user.status === "member") {
-    res.render("index", {
-      messages: allMessages,
-      user: req.isAuthenticated(),
-      member: true,
-    });
-  } else if (req.isAuthenticated() && req.user.status === "non-member") {
-    res.render("index", {
-      messages: allMessages,
-      user: req.isAuthenticated(),
+      user: true,
+      status: req.user.status,
     });
   } else {
     //For users who aren't logged in

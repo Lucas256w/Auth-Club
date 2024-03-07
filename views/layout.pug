@@ -8,8 +8,13 @@ html
     div
       p AuthClub 
     div
-      if user
-        a(href="/secret-form") Join Club
+      if user && status === "non-member"
+        a(href="/secret-form-member") Join Club
+        a(href="/log-out") Log Out
+      else if user && status === "member"
+        a(href="/secret-form-admin") Join Admin
+        a(href="/log-out") Log Out
+      else if user && status === "admin"
         a(href="/log-out") Log Out
       else 
         a(href="/log-in") Log In
