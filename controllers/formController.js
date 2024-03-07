@@ -4,8 +4,9 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
+const user = require("../models/user");
 
-// ------------- LOGIN FORM ---------------
+// ------------------------------------ LOGIN FORM ---------------------------------------
 
 // GET request for login form page
 exports.login_form = (req, res, next) => {
@@ -30,7 +31,7 @@ exports.login_form_post = (req, res, next) => {
   })(req, res, next);
 };
 
-// ------------- SIGNUP FORM ---------------
+// ------------------------------------ SIGNUP FORM ---------------------------------------
 
 // GET request for signup page, loads signup form
 exports.signup_form = (req, res, next) => {
@@ -89,6 +90,46 @@ exports.signup_form_post = [
       await user.save();
 
       res.render("signup_form", { message: "Sign Up Succesful!" });
+    }
+  }),
+];
+
+// ------------------------------------ MESSAGE FORM ---------------------------------------
+
+// GET request for message form, display message form
+exports.message_form = (req, res, next) => {
+  res.render("message_form", { user: req.isAuthenticated() });
+};
+
+// POST request for message form
+exports.message_form_post = [
+  body("title")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Must have a title")
+    .escape(),
+  body("message")
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage("Must have a message")
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const message = new Message({
+      title: req.body.title,
+      message: req.body.message,
+      user: req.user._id,
+      date: Date.now(),
+    });
+
+    if (!errors.isEmpty()) {
+      res.render("message_form", { user: req.user, errors: errors });
+    } else {
+      await message.save();
+
+      res.redirect("/");
     }
   }),
 ];

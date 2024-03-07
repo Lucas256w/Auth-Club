@@ -8,7 +8,10 @@ block content
       for message in messages 
         div.message-card
           p.message-title= message.title 
-          p.message-content= message.content 
+          p.message-content= message.message
+          if !admin || !member
+            div
+              p Note: Sign up AND become a member to see who wrote this message and when
     else 
       if user
         a(href="/message-form") New Message 
