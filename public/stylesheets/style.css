@@ -179,7 +179,8 @@ a {
 .form-container {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 50%;
+  border: 2px solid black;
 }
 
 .form-title {
